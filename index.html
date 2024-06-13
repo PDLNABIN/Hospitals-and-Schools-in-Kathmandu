@@ -11,8 +11,6 @@
         <link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/MarkerCluster.css">
-        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
         <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
@@ -41,10 +39,10 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="js/leaflet.markercluster.js"></script>
-        <script src="data/Hospitals_1.js"></script>
+        <script src="data/kaa_1.js"></script>
         <script src="data/school_2.js"></script>
-        <script src="data/kathmandu_3.js"></script>
+        <script src="data/Hospitals_3.js"></script>
+        <script src="data/kathmandu_4.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -53,7 +51,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        })
+        }).fitBounds([[27.647673205469825,85.15934504912634],[27.83799414195901,85.56703434915258]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -126,9 +124,6 @@
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
-            if (bounds_group.getLayers().length) {
-                map.fitBounds(bounds_group.getBounds());
-            }
         }
         map.createPane('pane_OpenStreetMap_0');
         map.getPane('pane_OpenStreetMap_0').style.zIndex = 400;
@@ -143,7 +138,7 @@
         });
         layer_OpenStreetMap_0;
         map.addLayer(layer_OpenStreetMap_0);
-        function pop_Hospitals_1(feature, layer) {
+        function pop_kaa_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -158,55 +153,28 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="location"colspan="2"><strong>location</strong><br />' + (feature.properties['location'] !== null ? autolinker.link(feature.properties['location'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="mobile"colspan="2"><strong>mobile</strong><br />' + (feature.properties['mobile'] !== null ? autolinker.link(feature.properties['mobile'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['PROVINCE'] !== null ? autolinker.link(feature.properties['PROVINCE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="name:ko"colspan="2"><strong>name:ko</strong><br />' + (feature.properties['name:ko'] !== null ? autolinker.link(feature.properties['name:ko'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['DISTRICT'] !== null ? autolinker.link(feature.properties['DISTRICT'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="opening_hours"colspan="2"><strong>opening_hours</strong><br />' + (feature.properties['opening_hours'] !== null ? autolinker.link(feature.properties['opening_hours'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['UNIT_TYPE'] !== null ? autolinker.link(feature.properties['UNIT_TYPE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="facility:x-ray"colspan="2"><strong>facility:x-ray</strong><br />' + (feature.properties['facility:x-ray'] !== null ? autolinker.link(feature.properties['facility:x-ray'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['UNIT_NAME'] !== null ? autolinker.link(feature.properties['UNIT_NAME'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="facility:ventilator"colspan="2"><strong>facility:ventilator</strong><br />' + (feature.properties['facility:ventilator'] !== null ? autolinker.link(feature.properties['facility:ventilator'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['DISTRICT_C'] !== null ? autolinker.link(feature.properties['DISTRICT_C'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="facility:operating_theatre"colspan="2"><strong>facility:operating_theatre</strong><br />' + (feature.properties['facility:operating_theatre'] !== null ? autolinker.link(feature.properties['facility:operating_theatre'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['SHAPE_LENG'] !== null ? autolinker.link(feature.properties['SHAPE_LENG'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="facility:icu"colspan="2"><strong>facility:icu</strong><br />' + (feature.properties['facility:icu'] !== null ? autolinker.link(feature.properties['facility:icu'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="email"colspan="2"><strong>email</strong><br />' + (feature.properties['email'] !== null ? autolinker.link(feature.properties['email'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="fax"colspan="2"><strong>fax</strong><br />' + (feature.properties['fax'] !== null ? autolinker.link(feature.properties['fax'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="contact:email"colspan="2"><strong>contact:email</strong><br />' + (feature.properties['contact:email'] !== null ? autolinker.link(feature.properties['contact:email'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="phone"colspan="2"><strong>phone</strong><br />' + (feature.properties['phone'] !== null ? autolinker.link(feature.properties['phone'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="emergency"colspan="2"><strong>emergency</strong><br />' + (feature.properties['emergency'] !== null ? autolinker.link(feature.properties['emergency'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="website"colspan="2"><strong>website</strong><br />' + (feature.properties['website'] !== null ? autolinker.link(feature.properties['website'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="name:ne"colspan="2"><strong>name:ne</strong><br />' + (feature.properties['name:ne'] !== null ? autolinker.link(feature.properties['name:ne'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="name:en"colspan="2"><strong>name:en</strong><br />' + (feature.properties['name:en'] !== null ? autolinker.link(feature.properties['name:en'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="name"colspan="2"><strong>name</strong><br />' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['SHAPE_AREA'] !== null ? autolinker.link(feature.properties['SHAPE_AREA'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -216,38 +184,204 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Hospitals_1_0() {
-            return {
-                pane: 'pane_Hospitals_1',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/Hospitals_1.svg',
-            iconSize: [7.6, 7.6]
-        }),
+        function style_kaa_1_0(feature) {
+            switch(String(feature.properties['UNIT_NAME'])) {
+                case 'Budhanilakantha':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,23,107,1.0)',
                 interactive: true,
             }
+                    break;
+                case 'Chandragiri':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(35,196,207,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Dakshinkali':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,146,56,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Gokarneshwor':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(138,41,217,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kageshwori Manahora':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,24,192,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kathmandu':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(216,53,45,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kirtipur':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(37,28,221,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Nagarjun':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(130,168,215,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Shankharapur':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(117,211,41,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Tarakeshwor':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(19,228,29,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Tokha':
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,238,67,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_kaa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(87,201,150,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
         }
-        map.createPane('pane_Hospitals_1');
-        map.getPane('pane_Hospitals_1').style.zIndex = 401;
-        map.getPane('pane_Hospitals_1').style['mix-blend-mode'] = 'normal';
-        var layer_Hospitals_1 = new L.geoJson(json_Hospitals_1, {
+        map.createPane('pane_kaa_1');
+        map.getPane('pane_kaa_1').style.zIndex = 401;
+        map.getPane('pane_kaa_1').style['mix-blend-mode'] = 'normal';
+        var layer_kaa_1 = new L.geoJson(json_kaa_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Hospitals_1',
-            layerName: 'layer_Hospitals_1',
-            pane: 'pane_Hospitals_1',
-            onEachFeature: pop_Hospitals_1,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.marker(latlng, style_Hospitals_1_0(feature));
-            },
+            dataVar: 'json_kaa_1',
+            layerName: 'layer_kaa_1',
+            pane: 'pane_kaa_1',
+            onEachFeature: pop_kaa_1,
+            style: style_kaa_1_0,
         });
-        bounds_group.addLayer(layer_Hospitals_1);
-        map.addLayer(layer_Hospitals_1);
+        bounds_group.addLayer(layer_kaa_1);
+        map.addLayer(layer_kaa_1);
         function pop_school_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -403,7 +537,7 @@
         rotationOrigin: 'center center',
         icon: L.icon({
             iconUrl: 'markers/school_2.svg',
-            iconSize: [12.92, 12.92]
+            iconSize: [6.08, 6.08]
         }),
                 interactive: true,
             }
@@ -426,13 +560,162 @@
                 return L.marker(latlng, style_school_2_0(feature));
             },
         });
-        var cluster_school_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
-            spiderfyDistanceMultiplier: 2});
-        cluster_school_2.addLayer(layer_school_2);
-
         bounds_group.addLayer(layer_school_2);
-        cluster_school_2.addTo(map);
-        function pop_kathmandu_3(feature, layer) {
+        map.addLayer(layer_school_2);
+        function pop_Hospitals_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td class="visible-with-data" id="location"colspan="2"><strong>location</strong><br />' + (feature.properties['location'] !== null ? autolinker.link(feature.properties['location'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="mobile"colspan="2"><strong>mobile</strong><br />' + (feature.properties['mobile'] !== null ? autolinker.link(feature.properties['mobile'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['healthca_1'] !== null ? autolinker.link(feature.properties['healthca_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name_ko'] !== null ? autolinker.link(feature.properties['name_ko'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addr_house'] !== null ? autolinker.link(feature.properties['addr_house'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['internet_a'] !== null ? autolinker.link(feature.properties['internet_a'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['opening_ho'] !== null ? autolinker.link(feature.properties['opening_ho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['management'] !== null ? autolinker.link(feature.properties['management'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['personnel_'] !== null ? autolinker.link(feature.properties['personnel_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['operator_t'] !== null ? autolinker.link(feature.properties['operator_t'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['opd_patien'] !== null ? autolinker.link(feature.properties['opd_patien'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['facility_x'] !== null ? autolinker.link(feature.properties['facility_x'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['facility_v'] !== null ? autolinker.link(feature.properties['facility_v'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['facility_o'] !== null ? autolinker.link(feature.properties['facility_o'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['facility_i'] !== null ? autolinker.link(feature.properties['facility_i'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['capacity_b'] !== null ? autolinker.link(feature.properties['capacity_b'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['building_c'] !== null ? autolinker.link(feature.properties['building_c'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="email"colspan="2"><strong>email</strong><br />' + (feature.properties['email'] !== null ? autolinker.link(feature.properties['email'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['toilets_wh'] !== null ? autolinker.link(feature.properties['toilets_wh'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="fax"colspan="2"><strong>fax</strong><br />' + (feature.properties['fax'] !== null ? autolinker.link(feature.properties['fax'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['descriptio'] !== null ? autolinker.link(feature.properties['descriptio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['contact_em'] !== null ? autolinker.link(feature.properties['contact_em'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addr_state'] !== null ? autolinker.link(feature.properties['addr_state'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addr_postc'] !== null ? autolinker.link(feature.properties['addr_postc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addr_count'] !== null ? autolinker.link(feature.properties['addr_count'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="phone"colspan="2"><strong>phone</strong><br />' + (feature.properties['phone'] !== null ? autolinker.link(feature.properties['phone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addr_stree'] !== null ? autolinker.link(feature.properties['addr_stree'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addr_city'] !== null ? autolinker.link(feature.properties['addr_city'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="emergency"colspan="2"><strong>emergency</strong><br />' + (feature.properties['emergency'] !== null ? autolinker.link(feature.properties['emergency'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="website"colspan="2"><strong>website</strong><br />' + (feature.properties['website'] !== null ? autolinker.link(feature.properties['website'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name_ne'] !== null ? autolinker.link(feature.properties['name_ne'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name_en'] !== null ? autolinker.link(feature.properties['name_en'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="name"colspan="2"><strong>name</strong><br />' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Hospitals_3_0() {
+            return {
+                pane: 'pane_Hospitals_3',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Hospitals_3.svg',
+            iconSize: [22.799999999999997, 22.799999999999997]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Hospitals_3');
+        map.getPane('pane_Hospitals_3').style.zIndex = 403;
+        map.getPane('pane_Hospitals_3').style['mix-blend-mode'] = 'normal';
+        var layer_Hospitals_3 = new L.geoJson(json_Hospitals_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Hospitals_3',
+            layerName: 'layer_Hospitals_3',
+            pane: 'pane_Hospitals_3',
+            onEachFeature: pop_Hospitals_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Hospitals_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Hospitals_3);
+        map.addLayer(layer_Hospitals_3);
+        function pop_kathmandu_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -490,9 +773,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_kathmandu_3_0() {
+        function style_kathmandu_4_0() {
             return {
-                pane: 'pane_kathmandu_3',
+                pane: 'pane_kathmandu_4',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -500,23 +783,23 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_kathmandu_3');
-        map.getPane('pane_kathmandu_3').style.zIndex = 403;
-        map.getPane('pane_kathmandu_3').style['mix-blend-mode'] = 'normal';
-        var layer_kathmandu_3 = new L.geoJson(json_kathmandu_3, {
+        map.createPane('pane_kathmandu_4');
+        map.getPane('pane_kathmandu_4').style.zIndex = 404;
+        map.getPane('pane_kathmandu_4').style['mix-blend-mode'] = 'normal';
+        var layer_kathmandu_4 = new L.geoJson(json_kathmandu_4, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_kathmandu_3',
-            layerName: 'layer_kathmandu_3',
-            pane: 'pane_kathmandu_3',
-            onEachFeature: pop_kathmandu_3,
-            style: style_kathmandu_3_0,
+            interactive: true,
+            dataVar: 'json_kathmandu_4',
+            layerName: 'layer_kathmandu_4',
+            pane: 'pane_kathmandu_4',
+            onEachFeature: pop_kathmandu_4,
+            style: style_kathmandu_4_0,
         });
-        bounds_group.addLayer(layer_kathmandu_3);
-        map.addLayer(layer_kathmandu_3);
+        bounds_group.addLayer(layer_kathmandu_4);
+        map.addLayer(layer_kathmandu_4);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
             position: 'topleft',
@@ -529,9 +812,11 @@
         .title += 'Search for a place';
         var baseMaps = {};
         var overlaysTree = [
-            {label: '<img src="legend/kathmandu_3.png" /> kathmandu', layer: layer_kathmandu_3},
-            {label: '<img src="legend/school_2.png" /> school', layer: cluster_school_2},
-            {label: '<img src="legend/Hospitals_1.png" /> Hospitals', layer: layer_Hospitals_1},
+        {label: '<b>group1</b>', selectAllCheckbox: true, children: [
+            {label: '<img src="legend/kathmandu_4.png" /> kathmandu', layer: layer_kathmandu_4},
+            {label: '<img src="legend/Hospitals_3.png" /> Hospitals', layer: layer_Hospitals_3},
+            {label: '<img src="legend/school_2.png" /> school', layer: layer_school_2},
+            {label: 'kaa<br /><table><tr><td style="text-align: center;"><img src="legend/kaa_1_Budhanilakantha0.png" /></td><td>Budhanilakantha</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Chandragiri1.png" /></td><td>Chandragiri</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Dakshinkali2.png" /></td><td>Dakshinkali</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Gokarneshwor3.png" /></td><td>Gokarneshwor</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_KageshworiManahora4.png" /></td><td>Kageshwori Manahora</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Kathmandu5.png" /></td><td>Kathmandu</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Kirtipur6.png" /></td><td>Kirtipur</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Nagarjun7.png" /></td><td>Nagarjun</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Shankharapur8.png" /></td><td>Shankharapur</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Tarakeshwor9.png" /></td><td>Tarakeshwor</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_Tokha10.png" /></td><td>Tokha</td></tr><tr><td style="text-align: center;"><img src="legend/kaa_1_11.png" /></td><td></td></tr></table>', layer: layer_kaa_1},]},
             {label: "OpenStreetMap", layer: layer_OpenStreetMap_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -540,10 +825,33 @@
             //openedSymbol: '&#8863; &#x1f5c1;',
             //collapseAll: 'Collapse all',
             //expandAll: 'Expand all',
-            collapsed: false, 
+            collapsed: true,
         });
         lay.addTo(map);
         setBounds();
+        var i = 0;
+        layer_kaa_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['UNIT_NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['UNIT_NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_kaa_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_kaa_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_kaa_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_kaa_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_kaa_1]);
+        });
         </script>
     </body>
 </html>
